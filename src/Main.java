@@ -29,7 +29,25 @@ public class Main {
     try {
 
       // Getting information from user
-      talkToUser();
+      if (args.length != 3) {
+        talkToUser();
+      } else {
+        System.out.println("Bravo!");
+
+        // Getting the max size of tuples inserted together
+        N = Integer.parseInt(args[0]);
+
+        // Understanding the DB required
+        if (args[1].compareTo("l") == 0) {
+          useServerPostgresDB = false;
+        }
+
+        // Understanding the data file name
+        File f = new File("data/"+args[2]);
+        if(f.exists() && !f.isDirectory()) {
+          data_file_path = "data/"+args[2];
+        }
+      }
 
       // Loading the credentials to the new postgresql database
       System.out.println("Reading database credentials");
@@ -111,7 +129,7 @@ public class Main {
     boolean correct_answer = false;
 
     // Understanding the N
-    while (N < 2) {
+    while (N < 1) {
       System.out.print("1. What is the max number of tuples inserted together?: ");
       N = Integer.parseInt(sc.nextLine());
     }

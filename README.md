@@ -62,4 +62,4 @@ Since I couldn't manage to find a way with the command line, I used Eclipse:
     -   Execute `scp data/TEMPERATURE.csv sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/standalone_n_ingestion/data`;
 -   Execute the JAR file (use the terminal connected through SSH):
     -   Execute `cd standalone_n_ingestion`;
-    -   Execute `java -jar NDataIngestionTest.jar`.
+    -   Execute `java -jar NDataIngestionTest.jar [N] [l/s] [file_name_in_data_folder]`.
