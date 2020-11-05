@@ -32,7 +32,6 @@ public class Main {
       if (args.length != 3) {
         talkToUser();
       } else {
-        System.out.println("Bravo!");
 
         // Getting the max size of tuples inserted together
         N = Integer.parseInt(args[0]);
