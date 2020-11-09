@@ -51,15 +51,16 @@ Since I couldn't manage to find a way with the command line, I used Eclipse:
 -   Connect to the unibz VPN through Cisco AnyConnect;
 -   Open a terminal:
     -   Execute `ssh -t sfracalossi@ironlady.inf.unibz.it "cd /data/sfracalossi ; bash"`;
-    -   Execute `mkdir standalone_n_ingestion`;
-    -   Execute `mkdir standalone_n_ingestion/resources`;
-    -   Execute `mkdir standalone_n_ingestion/data`;
+    -   Execute `mkdir postgresql`;
+    -   Execute `mkdir postgresql/standalone_n_ingestion`;
+    -   Execute `mkdir postgresql/standalone_n_ingestion/resources`;
+    -   Execute `mkdir postgresql/standalone_n_ingestion/data`;
 -   Send the JAR and the help files from another terminal (not connected through SSH):
-    -   Execute `scp standalone/NDataIngestionTest.jar sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/standalone_n_ingestion`;
-    -   Execute `scp resources/server_postgresql_credentials.txt sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/standalone_n_ingestion/resources`;
-    -   Execute `scp resources/logging.properties sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/standalone_n_ingestion/resources`;
+    -   Execute `scp standalone/NDataIngestionTest.jar sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/postgresql/standalone_n_ingestion`;
+    -   Execute `scp resources/server_postgresql_credentials.txt sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/postgresql/standalone_n_ingestion/resources`;
+    -   Execute `scp resources/logging.properties sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/postgresql/standalone_n_ingestion/resources`;
 -   Send the data file:
-    -   Execute `scp data/TEMPERATURE.csv sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/standalone_n_ingestion/data`;
+    -   Execute `scp data/TEMPERATURE.csv sfracalossi@ironlady.inf.unibz.it:/data/sfracalossi/postgresql/standalone_n_ingestion/data`;
 -   Execute the JAR file (use the terminal connected through SSH):
-    -   Execute `cd standalone_n_ingestion`;
-    -   Execute `java -jar NDataIngestionTest.jar [M] [N] [l/s] [file_name_in_data_folder]`.
+    -   Execute `cd postgresql/standalone_n_ingestion`;
+    -   Execute `nohup java -jar NDataIngestionTest.jar [M] [N] [l/s] [file_name_in_data_folder] > logs/out.txt &`.
