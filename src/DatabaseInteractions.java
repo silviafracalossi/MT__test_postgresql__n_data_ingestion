@@ -7,6 +7,7 @@ import java.text.*;
 public class DatabaseInteractions {
 
   // DB variables
+  static String db_name = "test_table_n";
   static Connection pos_conn = null;
   static Statement pos_stmt = null;
   static Boolean useServerPostgresDB = false;
@@ -64,7 +65,7 @@ public class DatabaseInteractions {
       Scanner reader = new Scanner(new File(data_file_path));
 
       // Defining variables for the insertion
-      String insertion_query = "INSERT INTO test_table (time, value) VALUES (?, ?)";
+      String insertion_query = "INSERT INTO "+db_name+" (time, value) VALUES (?, ?)";
       PreparedStatement pst = pos_conn.prepareStatement(insertion_query);
 
       // Signaling start of test
@@ -119,7 +120,7 @@ public class DatabaseInteractions {
     int rows_inserted = 0;
 
     // Defining variables for the insertion
-    String original_insert_query = "INSERT INTO test_table (time, value) VALUES ";
+    String original_insert_query = "INSERT INTO "+db_name+" (time, value) VALUES ";
     String insertion_query = original_insert_query;
     String insertions="";
 
@@ -246,7 +247,7 @@ public class DatabaseInteractions {
   // Creating the table "test_table" in the database
   public static boolean createTestTable () {
     try {
-      String test_table_creation = "CREATE TABLE test_table (" +
+      String test_table_creation = "CREATE TABLE "+db_name+" (" +
               "    time timestamp NOT NULL," +
               "    value smallint NOT NULL" +
               ")";
@@ -262,7 +263,7 @@ public class DatabaseInteractions {
   // Dropping the table "test_table" from the database
   public static boolean removeTestTable() {
     try {
-      String test_table_drop = "DROP TABLE IF EXISTS test_table;";
+      String test_table_drop = "DROP TABLE IF EXISTS "+db_name+";";
       return (pos_stmt.executeUpdate(test_table_drop) == 0);
     } catch (SQLException e) {
       e.printStackTrace();
