@@ -229,20 +229,14 @@ public class DatabaseInteractions {
       // Connecting and creating a statement
       pos_conn = DriverManager.getConnection(pos_complete_url);
       pos_stmt = pos_conn.createStatement();
+
+      // Removing old table
+      removeTestTable();
     } catch (SQLException e) {
       System.out.println("Problems with creating the database connection");
       e.printStackTrace();
     }
   }
-
-
-  // Removing the table in case it was still there from previous tests
-  public static void preparingDatabase() {
-    createDBConnection();
-    removeTestTable();
-    closeDBConnection();
-  }
-
 
   // Creating the table "test_table" in the database
   public static boolean createTestTable () {

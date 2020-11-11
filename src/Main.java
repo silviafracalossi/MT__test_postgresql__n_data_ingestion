@@ -64,10 +64,6 @@ public class Main {
         e.printStackTrace();
       }
 
-      // Removing the table in case it was still there from previous tests
-      System.out.println("Preparing database for tests");
-      dbi.preparingDatabase();
-
       // Marking start of tests
       System.out.println("---Start of Tests!---");
 
@@ -219,7 +215,6 @@ public class Main {
 
   // Cleans the database and closes all the connections to it
   public static void endOfTest() {
-    dbi.removeTestTable();
     dbi.closeDBConnection();
   }
 }
