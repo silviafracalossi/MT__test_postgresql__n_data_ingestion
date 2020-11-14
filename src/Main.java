@@ -123,7 +123,7 @@ public class Main {
   // Interactions with the user to understand his/her preferences
   public static void talkToUser () throws Exception {
 
-    System.out.println("4 questions for you!");
+    System.out.println("5 questions for you!");
 
     String response = "";
     boolean correct_answer = false;
