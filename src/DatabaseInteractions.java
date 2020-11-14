@@ -7,7 +7,7 @@ import java.text.*;
 public class DatabaseInteractions {
 
   // DB variables
-  static String db_name = "test_table_n";
+  static String dbName="";
   static Connection pos_conn = null;
   static Statement pos_stmt = null;
   static Boolean useServerPostgresDB = false;
@@ -33,7 +33,8 @@ public class DatabaseInteractions {
   String data_file_path;
 
   // Constructor
-  public DatabaseInteractions (String data_file_path, Boolean useServerPostgresDB, String DB_USER, String DB_PASS) {
+  public DatabaseInteractions (String dbName, String data_file_path, Boolean useServerPostgresDB, String DB_USER, String DB_PASS) {
+    this.dbName=dbName;
     this.useServerPostgresDB=useServerPostgresDB;
     this.DB_USER=DB_USER;
     this.DB_PASS=DB_PASS;
@@ -65,7 +66,7 @@ public class DatabaseInteractions {
       Scanner reader = new Scanner(new File(data_file_path));
 
       // Defining variables for the insertion
-      String insertion_query = "INSERT INTO "+db_name+" (time, value) VALUES (?, ?)";
+      String insertion_query = "INSERT INTO "+dbName+" (time, value) VALUES (?, ?)";
       PreparedStatement pst = pos_conn.prepareStatement(insertion_query);
 
       // Signaling start of test
@@ -120,7 +121,7 @@ public class DatabaseInteractions {
     int rows_inserted = 0;
 
     // Defining variables for the insertion
-    String original_insert_query = "INSERT INTO "+db_name+" (time, value) VALUES ";
+    String original_insert_query = "INSERT INTO "+dbName+" (time, value) VALUES ";
     String insertion_query = original_insert_query;
     String insertions="";
 
@@ -241,7 +242,7 @@ public class DatabaseInteractions {
   // Creating the table "test_table" in the database
   public static boolean createTestTable () {
     try {
-      String test_table_creation = "CREATE TABLE "+db_name+" (" +
+      String test_table_creation = "CREATE TABLE "+dbName+" (" +
               "    time timestamp NOT NULL," +
               "    value smallint NOT NULL" +
               ")";
@@ -257,7 +258,7 @@ public class DatabaseInteractions {
   // Dropping the table "test_table" from the database
   public static boolean removeTestTable() {
     try {
-      String test_table_drop = "DROP TABLE IF EXISTS "+db_name+";";
+      String test_table_drop = "DROP TABLE IF EXISTS "+dbName+";";
       return (pos_stmt.executeUpdate(test_table_drop) == 0);
     } catch (SQLException e) {
       e.printStackTrace();

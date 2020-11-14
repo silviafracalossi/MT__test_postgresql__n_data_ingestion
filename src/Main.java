@@ -14,6 +14,7 @@ public class Main {
   static boolean useServerPostgresDB = true;
   static String data_file_path = "data/TEMPERATURE_DATA.csv";
   static int N = 0, M=0;
+  static String dbName="";
 
   // Logger names date formatter
   static String logs_path = "logs/";
@@ -29,7 +30,7 @@ public class Main {
     try {
 
       // Getting information from user
-      if (args.length != 4) {
+      if (args.length != 5) {
         talkToUser();
       } else {
 
@@ -42,10 +43,13 @@ public class Main {
           useServerPostgresDB = false;
         }
 
+        // DBName
+        dbName = args[3];
+
         // Understanding the data file name
-        File f = new File("data/"+args[3]);
+        File f = new File("data/"+args[4]);
         if(f.exists() && !f.isDirectory()) {
-          data_file_path = "data/"+args[3];
+          data_file_path = "data/"+args[4];
         }
       }
 
@@ -56,7 +60,7 @@ public class Main {
         Scanner myReader = new Scanner(myObj);
         String DB_USER = myReader.nextLine();
         String DB_PASS = myReader.nextLine();
-        dbi = new DatabaseInteractions(data_file_path, useServerPostgresDB, DB_USER, DB_PASS);
+        dbi = new DatabaseInteractions(dbName, data_file_path, useServerPostgresDB, DB_USER, DB_PASS);
         myReader.close();
       } catch (FileNotFoundException e) {
         System.out.println("Please, remember to create the database"+
@@ -95,7 +99,7 @@ public class Main {
         logger.info("--End of test #"+i+"--");
 
         // Clean database and close connections
-        endOfTest();
+        dbi.closeDBConnection();
 
       }
     } catch(Exception e) {
@@ -154,11 +158,17 @@ public class Main {
       }
     }
 
+    // Understanding the DB table
+    while (dbName.length()<10 || dbName.substring(0, 10).compareTo("test_table") != 0) {
+      System.out.print("4. What is the name of the database: ");
+      dbName = sc.nextLine().replace(" ", "");
+    }
+
     // Understanding which file to run
     response = "";
     correct_answer = false;
     while (!correct_answer) {
-      System.out.print("4. Finally, inside the data folder, what is the name" +
+      System.out.print("5. Finally, inside the data folder, what is the name" +
       " of the file containing the data to be inserted? ");
       response = sc.nextLine().replace(" ", "");
 
@@ -212,9 +222,4 @@ public class Main {
     return logger;
   }
 
-
-  // Cleans the database and closes all the connections to it
-  public static void endOfTest() {
-    dbi.closeDBConnection();
-  }
 }

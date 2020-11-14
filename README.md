@@ -7,7 +7,8 @@ Tester of the Postgresql ability of ingesting time series data, from 1 to N tupl
 -   `data/`, containing the printers parsed logs files in the format of CSV files;
 -   `logs/`, containing the log information of all the tests done;
 -   `resources/`, containing the postgresql driver, the database credentials file and the logger properties;
--   `src/`, containing the java source files.
+-   `src/`, containing the java source files;
+-   `standalone/`, containing the JAR standalone version of this repository.
 
 In the main directory, there is:
 -   `compile_and_run.bash`, a bash file containing the commands for compiling the java code and running it.
